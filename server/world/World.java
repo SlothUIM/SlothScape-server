@@ -82,11 +82,10 @@ public class World {
 
 	public void onShutdown() {
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			SYSTEM_SCHEDULER.shutdown(); // Updated name
+			SYSTEM_SCHEDULER.shutdown(); 
 			ApiClient.shutdown();
 		}));
 	}
-	// Rename to reflect its new global background duties
 	private static final ScheduledExecutorService SYSTEM_SCHEDULER = Executors.newSingleThreadScheduledExecutor();
 
 	public void init() throws Exception {
@@ -118,7 +117,6 @@ public class World {
 		MotherlodeMine.spawnVeins();
 		eventHandler.submit(new WheatPortalEvent());
 
-		// Task A: The Player Status Writer (Every 10 seconds)
 		SYSTEM_SCHEDULER.scheduleAtFixedRate(() -> {
 			try {
 				int activePlayers = 0;
@@ -133,7 +131,6 @@ public class World {
 			}
 		}, 10, 10, TimeUnit.SECONDS);
 
-		// Task B: GLOBAL GRAND EXCHANGE CACHE RELOAD (Every 4 hours)
 		SYSTEM_SCHEDULER.scheduleAtFixedRate(() -> {
 			try {
 				System.out.println("[System] Running background refresh of Grand Exchange prices...");
@@ -142,7 +139,7 @@ public class World {
 				System.err.println("[Error] Background GE price refresh failed!");
 				e.printStackTrace();
 			}
-		}, 4, 4, TimeUnit.HOURS); // Initial delay of 4 hours, repeats every 4 hours
+		}, 4, 4, TimeUnit.HOURS); 
 
 		ApiClient.startPmPollingLoop();
 	}
