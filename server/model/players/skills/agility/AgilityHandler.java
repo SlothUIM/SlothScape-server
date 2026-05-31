@@ -21,6 +21,8 @@ import server.model.players.skills.pets.PetHandler.SkillPets;
 //import valius.model.items.ItemUtility;
 import server.util.Misc;
 
+import static server.model.players.skills.agility.impl.rooftop.RooftopVarrock.ROUGH_WALL;
+
 /**
  * AgilityHandler
  * * @author Andrew (I'm A Boss on Rune-Server and Mr Extremez on Mopar & Runelocus)
@@ -158,7 +160,7 @@ public class AgilityHandler {
 
 	public double getXp(int objectId) {
 		switch (objectId) {
-			case RooftopVarrock.ROUGH_WALL: return 13;
+			case ROUGH_WALL: return 13;
 			case RooftopVarrock.CLOTHES_LINE: return 23;
 			case RooftopVarrock.LEAP_GAP: return 19;
 			case RooftopVarrock.BALANCE_WALL_JUMP: return 28;
@@ -205,7 +207,7 @@ public class AgilityHandler {
 			case BarbarianAgility.BARBARIAN_LADDER_OBJECT:
 			case BarbarianAgility.BARBARIAN_WALL_OBJECT: return 35;
 			case RooftopSeers.WALL: return 60;
-			case RooftopVarrock.ROUGH_WALL: return 30;
+			case ROUGH_WALL: return 30;
 			case RooftopArdougne.WOODEN_BEAMS: return 90;
 			case Shortcuts.SLAYER_TOWER_CHAIN_UP: return 61;
 			case Shortcuts.RELLEKKA_STRANGE_FLOOR: return 81;
@@ -502,6 +504,12 @@ public class AgilityHandler {
 		}
 		if (hotSpot(c, 3198, 3416)) {
 			c.setMove(new int[][]{{3197, 3416}}, "WEST", 2588, -1, 0, 20, 3197, 3416, 2, 1, 1, 1);
+		}
+		if (hotSpot(c, 3220, 3414) && c.getHeight() == 3) {
+			c.setMove(new int[][]{{3219, 3414}}, "WEST", 2585, -1, 30, 60, 3219, 3414, 1, 1, 1, 3);
+
+			c.getAgilityHandler().RoofAgilityProgress[2][0] = true;
+			c.getAgilityHandler().lapProgress(c, 0, ROUGH_WALL, 2);
 		}
 		if (hotSpot(c, 3253, 3180)) {
 			delayEmote(c, "JUMP", 3259, 3179, 0, 2);

@@ -34,21 +34,8 @@ public class RooftopVarrock {
 
 		switch (objectId) {
 		case ROUGH_WALL:
-			c.setMove(new int[][]{{3220, 3414}}, "WEST", 828, -1, 28, 0, 3220, 3414, 2, 1, 1, 3);
-			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-				@Override
-				public void execute(CycleEventContainer container) {
-					if (c.getX() == 3220 && c.getY() == 3414 && c.getHeight() == 3) {
-						// Speed 35 gives enough time for the climb animation to finish
-						c.setMove(new int[][]{{3219, 3414}}, "WEST", 2585, -1, 0, 20, 3219, 3414, 1, 1, 1, 3);
-						container.stop();
-					}
-				}
-				@Override
-				public void stop() {}
-			}, 2); // 2 Ticks to allow the first climb to finish visually
-			c.getAgilityHandler().RoofAgilityProgress[2][0] = true;
-			c.getAgilityHandler().lapProgress(c, 0, ROUGH_WALL, 2);
+			c.setMove(new int[][]{{3220, 3414}}, "WEST", 828, -1, 30, 60, 3220, 3414, 2, 1, 1, 3);
+
 			return true;
 
 		case CLOTHES_LINE:
