@@ -21,9 +21,7 @@ public class ApiClient {
     private static final String API_BASE_URL = "https://slothscape.com/api/slothscape/bridge";
     private static final Gson gson = new Gson();
 
-    // --- THE FIX: Make the executor a class-level variable so we can shut it down later ---
     private static ScheduledExecutorService pmExecutor;
-    // --- NEW: The Global State Cache ---
     public static final java.util.concurrent.ConcurrentHashMap<Long, Integer> globalOnlinePlayers = new java.util.concurrent.ConcurrentHashMap<>();
 
     public static void syncGlobalPlayerList() {
@@ -45,7 +43,6 @@ public class ApiClient {
 
                 JSONArray arr = new JSONArray(response.toString());
 
-                // Clear the old cache and build the new one
                 globalOnlinePlayers.clear();
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
@@ -54,7 +51,6 @@ public class ApiClient {
                 }
             }
         } catch (Exception e) {
-            // Silently fail if bridge is down; it will retry in 10 seconds
         }
     }
     public static int getPlayersOnWorld(int worldId) {
@@ -81,9 +77,7 @@ public class ApiClient {
 
             int code = con.getResponseCode();
             if (code == 200) {
-                //System.out.println("Updated status for " + playerName);
             } else {
-                //System.err.println("Failed to update status for " + playerName + " (HTTP " + code + ")");
             }
         } catch (IOException e) {
             System.err.println("[ApiClient] Status Update Error: " + e.getMessage());
@@ -126,22 +120,16 @@ public class ApiClient {
 
         pmExecutor = Executors.newSingleThreadScheduledExecutor();
         pmExecutor.scheduleAtFixedRate(() -> {
-            // --- THE SHIELD: Catch all errors so the loop NEVER dies! ---
             try {
-                // 1. Download the live player list from the Master Bridge
                 syncGlobalPlayerList();
 
-                // Optional: Print a debug so you can visually verify the loop is alive
-                // System.out.println("[Bridge] Polled " + globalOnlinePlayers.size() + " total online players.");
 
                 for (Player p : PlayerHandler.players) {
-                    // Strict null checks to prevent mid-login/mid-logout crashes
                     if (p != null && p.isActive && p.getFriends() != null) {
 
                         pollPrivateMessages(p);
                         updatePlayerStatus(p.playerName, server.ServerStatusWriter.WORLD_ID);
 
-                        // 2. Spam the client with the updated list!
                         p.getFriends().sendList();
                     }
                 }
@@ -152,7 +140,6 @@ public class ApiClient {
         }, 2, 2, TimeUnit.SECONDS);
     }
 
-    // --- THE FIX: The missing shutdown method! ---
     public static void shutdown() {
         if (pmExecutor != null && !pmExecutor.isShutdown()) {
             pmExecutor.shutdown();
