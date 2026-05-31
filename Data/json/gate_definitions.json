@@ -1,0 +1,86 @@
+[
+  {
+    "closed1": { "id": 1560, "x": 2675, "y": 3349, "height": 0, "face": 2, "type": 0 },
+    "closed2": { "id": 1558, "x": 2675, "y": 3350, "height": 0, "face": 2, "type": 0 },
+    "open1": { "id": 1567, "x": 2677, "y": 3350, "height": 0, "face": 1, "type": 0 },
+    "open2": { "id": 1559, "x": 2676, "y": 3350, "height": 0, "face": 1, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3253, "y": 3267, "height": 0, "face": 0, "type": 0 },
+    "closed2": { "id": 1558, "x": 3253, "y": 3266, "height": 0, "face": 0, "type": 0 },
+    "open1": { "id": 1567, "x": 3252, "y": 3267, "height": 0, "face": 1, "type": 0 },
+    "open2": { "id": 1559, "x": 3251, "y": 3267, "height": 0, "face": 1, "type": 0 }
+  },
+  {
+    "closed1": { "id": 9708, "x": 3089, "y": 3091, "height": 0, "face": 2, "type": 0 },
+    "closed2": { "id": 9470, "x": 3089, "y": 3092, "height": 0, "face": 2, "type": 0 },
+    "open1": { "id": 8813, "x": 3090, "y": 3091, "height": 0, "face": 3, "type": 0 },
+    "open2": { "id": 8812, "x": 3091, "y": 3091, "height": 0, "face": 3, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3236, "y": 3284, "height": 0, "face": 2, "type": 0 },
+    "closed2": { "id": 1558, "x": 3236, "y": 3285, "height": 0, "face": 2, "type": 0 },
+    "open1": { "id": 1567, "x": 3238, "y": 3285, "height": 0, "face": 1, "type": 0 },
+    "open2": { "id": 1559, "x": 3237, "y": 3285, "height": 0, "face": 1, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3180, "y": 3289, "height": 0, "face": 1, "type": 0 },
+    "closed2": { "id": 1558, "x": 3181, "y": 3289, "height": 0, "face": 1, "type": 0 },
+    "open1": { "id": 1567, "x": 3180, "y": 3288, "height": 0, "face": 0, "type": 0 },
+    "open2": { "id": 1559, "x": 3180, "y": 3287, "height": 0, "face": 0, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3197, "y": 3282, "height": 0, "face": 1, "type": 0 },
+    "closed2": { "id": 1558, "x": 3198, "y": 3282, "height": 0, "face": 1, "type": 0 },
+    "open1": { "id": 1567, "x": 3197, "y": 3281, "height": 0, "face": 0, "type": 0 },
+    "open2": { "id": 1559, "x": 3197, "y": 3280, "height": 0, "face": 0, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3162, "y": 3290, "height": 0, "face": 1, "type": 0 },
+    "closed2": { "id": 1558, "x": 3163, "y": 3290, "height": 0, "face": 1, "type": 0 },
+    "open1": { "id": 1567, "x": 3162, "y": 3289, "height": 0, "face": 0, "type": 0 },
+    "open2": { "id": 1559, "x": 3162, "y": 3288, "height": 0, "face": 0, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3146, "y": 3291, "height": 0, "face": 3, "type": 0 },
+    "closed2": { "id": 1558, "x": 3145, "y": 3291, "height": 0, "face": 3, "type": 0 },
+    "open1": { "id": 1567, "x": 3147, "y": 3293, "height": 0, "face": 0, "type": 0 },
+    "open2": { "id": 1559, "x": 3147, "y": 3292, "height": 0, "face": 0, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3236, "y": 3295, "height": 0, "face": 2, "type": 0 },
+    "closed2": { "id": 1558, "x": 3236, "y": 3296, "height": 0, "face": 2, "type": 0 },
+    "open1": { "id": 1567, "x": 3238, "y": 3296, "height": 0, "face": 1, "type": 0 },
+    "open2": { "id": 1559, "x": 3237, "y": 3296, "height": 0, "face": 1, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3241, "y": 3302, "height": 0, "face": 0, "type": 0 },
+    "closed2": { "id": 1558, "x": 3241, "y": 3301, "height": 0, "face": 0, "type": 0 },
+    "open1": { "id": 1567, "x": 3239, "y": 3301, "height": 0, "face": 3, "type": 0 },
+    "open2": { "id": 1559, "x": 3240, "y": 3301, "height": 0, "face": 3, "type": 0 }
+  },
+  {
+    "closed1": { "id": 12987, "x": 3213, "y": 3262, "height": 0, "face": 0, "type": 0 },
+    "closed2": { "id": 12986, "x": 3213, "y": 3261, "height": 0, "face": 0, "type": 0 },
+    "open1": { "id": 12988, "x": 3212, "y": 3261, "height": 0, "face": 3, "type": 0 },
+    "open2": { "id": 12989, "x": 3211, "y": 3261, "height": 0, "face": 3, "type": 0 }
+  },
+  {
+    "closed1": { "id": 12987, "x": 3189, "y": 3279, "height": 0, "face": 3, "type": 0 },
+    "closed2": { "id": 12986, "x": 3188, "y": 3279, "height": 0, "face": 3, "type": 0 },
+    "open1": { "id": 12988, "x": 3190, "y": 3281, "height": 0, "face": 0, "type": 0 },
+    "open2": { "id": 12989, "x": 3190, "y": 3280, "height": 0, "face": 0, "type": 0 }
+  },
+  {
+    "closed1": { "id": 1560, "x": 3079, "y": 3501, "height": 0, "face": 1, "type": 0 },
+    "closed2": { "id": 1558, "x": 3080, "y": 3501, "height": 0, "face": 1, "type": 0 },
+    "open1": { "id": 1567, "x": 3079, "y": 3500, "height": 0, "face": 0, "type": 0 },
+    "open2": { "id": 1559, "x": 3079, "y": 3499, "height": 0, "face": 0, "type": 0 }
+  },
+  {
+    "closed1": { "id": 15514, "x": 3214, "y": 3354, "height": 0, "face": 3, "type": 0 },
+    "closed2": { "id": 15516, "x": 3213, "y": 3354, "height": 0, "face": 3, "type": 0 },
+    "open1": { "id": 15515, "x": 3214, "y": 3353, "height": 0, "face": 2, "type": 0 },
+    "open2": { "id": 15517, "x": 3214, "y": 3352, "height": 0, "face": 2, "type": 0 }
+  }
+]

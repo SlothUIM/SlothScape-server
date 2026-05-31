@@ -1,0 +1,266 @@
+[
+  {
+    "name": "Adventure",
+    "hint": "Unlocked in the Varrock Palace.",
+    "musicId": 177,
+    "slotId": 2,
+    "duration": 180,
+    "regionIds": [ 12854 ]
+  },
+  {
+    "name": "Al Kharid",
+    "hint": "Unlocked in Al Kharid.",
+    "musicId": 50,
+    "slotId": 3,
+    "duration": 115,
+    "regionIds": [ 13105, 13361 ]
+  },
+  {
+    "name": "Alone",
+    "hint": "Unlocked in the Clock Tower Dungeon and Ice Mountain.",
+    "musicId": 102,
+    "slotId": 4,
+    "duration": 110,
+    "regionIds": [ 12086, 10134, 10390 ]
+  },
+  {
+    "name": "Ambient Jungle",
+    "hint": "Unlocked in the deeper parts of the Karamja jungle.",
+    "musicId": 90,
+    "slotId": 8,
+    "duration": 125,
+    "regionIds": [ 11310 ]
+  },
+  {
+    "name": "Arabian",
+    "hint": "Unlocked near the Duel Arena.",
+    "musicId": 36,
+    "slotId": 10,
+    "duration": 120,
+    "regionIds": [ 13106 ]
+  },
+  {
+    "name": "Autumn Voyage",
+    "hint": "Unlocked north of Lumbridge.",
+    "musicId": 87,
+    "slotId": 12,
+    "duration": 135,
+    "regionIds": [ 13107 ]
+  },
+  {
+    "name": "Barbarianism",
+    "hint": "Unlocked at the Barbarian Village.",
+    "musicId": 137,
+    "slotId": 15,
+    "duration": 140,
+    "regionIds": [ 12341 ]
+  },
+  {
+    "name": "Beyond",
+    "hint": "Unlocked in the Underground Pass.",
+    "musicId": 100,
+    "slotId": 32,
+    "duration": 140,
+    "regionIds": [ 11418, 11419, 11675 ]
+  },
+  {
+    "name": "Book of Spells",
+    "hint": "Unlocked at the Wizards' Tower.",
+    "musicId": 67,
+    "slotId": 35,
+    "duration": 160,
+    "regionIds": [ 12591, 12592 ]
+  },
+  {
+    "name": "Camelot",
+    "hint": "Unlocked in Camelot Castle.",
+    "musicId": 119,
+    "slotId": 40,
+    "duration": 155,
+    "regionIds": [ 11062, 10806 ]
+  },
+  {
+    "name": "Doorways",
+    "hint": "Unlocked in the Taverley Dungeon.",
+    "musicId": 81,
+    "slotId": 52,
+    "duration": 190,
+    "regionIds": [ 11573, 11829 ]
+  },
+  {
+    "name": "Dream",
+    "hint": "Unlocked in the deep Wilderness.",
+    "musicId": 157,
+    "slotId": 55,
+    "duration": 170,
+    "regionIds": [ 12607, 12863 ]
+  },
+  {
+    "name": "Expanse",
+    "hint": "Unlocked in the Varrock wilderness.",
+    "musicId": 106,
+    "slotId": 65,
+    "duration": 135,
+    "regionIds": [ 12605, 12852, 12952 ]
+  },
+  {
+    "name": "Fanfare",
+    "hint": "Unlocked in Falador.",
+    "musicId": 117,
+    "slotId": 67,
+    "duration": 110,
+    "regionIds": [ 11828, 12084 ]
+  },
+  {
+    "name": "Flute Salad",
+    "hint": "Unlocked at the Falador farming patch.",
+    "musicId": 126,
+    "slotId": 68,
+    "duration": 125,
+    "regionIds": [ 12083 ]
+  },
+  {
+    "name": "Forever",
+    "hint": "Unlocked in Edgeville.",
+    "musicId": 98,
+    "slotId": 70,
+    "duration": 120,
+    "regionIds": [ 12342, 156 ]
+  },
+  {
+    "name": "Garden",
+    "hint": "Unlocked in Varrock.",
+    "musicId": 122,
+    "slotId": 72,
+    "duration": 160,
+    "regionIds": [ 12853, 13109 ]
+  },
+  {
+    "name": "Greatness",
+    "hint": "Unlocked north of Falador.",
+    "musicId": 154,
+    "slotId": 75,
+    "duration": 145,
+    "regionIds": [ 11829, 12085 ]
+  },
+  {
+    "name": "Harmony",
+    "hint": "Unlocked at the Lumbridge Castle.",
+    "musicId": 76,
+    "slotId": 1,
+    "duration": 120,
+    "regionIds": [ 12850, 7507 ]
+  },
+  {
+    "name": "Horizon",
+    "hint": "Unlocked in Taverley.",
+    "musicId": 159,
+    "slotId": 82,
+    "duration": 130,
+    "regionIds": [ 11574, 11575 ]
+  },
+  {
+    "name": "Magic Dance",
+    "hint": "Unlocked at the Mage Training Arena.",
+    "musicId": 172,
+    "slotId": 105,
+    "duration": 140,
+    "regionIds": [ 13363 ]
+  },
+  {
+    "name": "Mellow",
+    "hint": "Unlocked in the Sorting Room.",
+    "musicId": 127,
+    "slotId": 110,
+    "duration": 150,
+    "regionIds": [ 11572 ]
+  },
+  {
+    "name": "Newbie Melody",
+    "hint": "Unlocked by default.",
+    "musicId": 62,
+    "slotId": 0,
+    "duration": 120,
+    "regionIds": [ 12079, 12336, 12592 ]
+  },
+  {
+    "name": "Nightfall",
+    "hint": "Unlocked in Lumbridge Swamp.",
+    "musicId": 167,
+    "slotId": 115,
+    "duration": 165,
+    "regionIds": [ 12594, 12850 ]
+  },
+  {
+    "name": "Sea Shanty 2",
+    "hint": "Unlocked at Port Sarim.",
+    "musicId": 50,
+    "slotId": 18,
+    "duration": 127,
+    "regionIds": [ 12082 ]
+  },
+  {
+    "name": "Spirit",
+    "hint": "Unlocked in East Ardougne.",
+    "musicId": 112,
+    "slotId": 135,
+    "duration": 180,
+    "regionIds": [ 10548, 10804 ]
+  },
+  {
+    "name": "Start",
+    "hint": "Unlocked in Draynor Village.",
+    "musicId": 113,
+    "slotId": 138,
+    "duration": 140,
+    "regionIds": [ 12338 ]
+  },
+  {
+    "name": "Still Night",
+    "hint": "Unlocked at South-west Varrock mine.",
+    "musicId": 111,
+    "slotId": 150,
+    "duration": 115,
+    "regionIds": [ 13108 ]
+  },
+  {
+    "name": "Vision",
+    "hint": "Unlocked in the Draynor Manor grounds.",
+    "musicId": 85,
+    "slotId": 182,
+    "duration": 145,
+    "regionIds": [ 12337, 12436, 12438 ]
+  },
+  {
+    "name": "Wander",
+    "hint": "Unlocked at the Lumbridge crossroads.",
+    "musicId": 138,
+    "slotId": 188,
+    "duration": 150,
+    "regionIds": [ 12596 ]
+  },
+  {
+    "name": "Waterfall",
+    "hint": "Unlocked at Baxtorian Falls.",
+    "musicId": 184,
+    "slotId": 192,
+    "duration": 170,
+    "regionIds": [ 10034, 10290 ]
+  },
+  {
+    "name": "Wilderness",
+    "hint": "Unlocked in the low-level Wilderness.",
+    "musicId": 435,
+    "slotId": 200,
+    "duration": 150,
+    "regionIds": [ 11832, 12346 ]
+  },
+  {
+    "name": "Yesteryear",
+    "hint": "Unlocked in the Lumbridge Swamp.",
+    "musicId": 128,
+    "slotId": 205,
+    "duration": 160,
+    "regionIds": [ 12849 ]
+  }
+]
