@@ -495,12 +495,50 @@ public class AgilityHandler {
 		}
 
 		if (hotSpot(c, 3215, 3399)) {
-			c.setMove(new int[][]{{3218, 3399}}, "EAST", JUMP_EMOTE, -1, 0, 30, 3218, 3399, 3, 1, 1, 3);
+			c.setMove(new int[][]{{3218, 3399}}, "EAST", JUMP_EMOTE, -1, 30, 60, 3218, 3399, 3, 1, 1, 3);
+		}
+		if (hotSpot(c, 3211, 3414)) {
+			c.setMove(new int[][]{{3208, 3414}}, "WEST", 741, -1, 15, 30, 3208, 3414, 1, 1, 1, c.getHeight());
+		}
+		if (hotSpot(c, 3198, 3416)) {
+			c.setMove(new int[][]{{3197, 3416}}, "WEST", 2588, -1, 0, 20, 3197, 3416, 2, 1, 1, 1);
 		}
 		if (hotSpot(c, 3253, 3180)) {
 			delayEmote(c, "JUMP", 3259, 3179, 0, 2);
 		}
+// =========================================================
+		// VARROCK ROOFTOP: BALANCE WALL JUMP (Chain Reaction)
+		// =========================================================
 
+		// Step 1: End of Run-up -> Leap to Wall
+		if (hotSpot(c, 3193, 3416)) {
+			c.setMove(new int[][]{{3190, 3414}}, "WEST", 2583, -1, 30, 60, 3190, 3414, 1, 1, 1, 1);
+		}
+
+		// Step 2: Land on wall -> Start slow shimmy
+		else if (hotSpot(c, 3190, 3414)) {
+			c.setMove(new int[][]{{3190, 3413}, {3190, 3411}}, "WEST", 1122, -1, 30, 60, 3190, 3411, 1, 1, 1, 1);
+		}
+
+		// Step 3: End of shimmy -> The Reach (Anim 1124)
+		else if (hotSpot(c, 3190, 3411)) {
+			c.setMove(new int[][]{{3190, 3410}}, "WEST", 1124, -1, 30, 60, 3190, 3410, 1, 1, 1, 1);
+		}
+
+		// Step 4: After reach -> Final slide down the edge
+		else if (hotSpot(c, 3190, 3410)) {
+			c.setMove(new int[][]{{3190, 3407}}, "SOUTH", 756, -1, 30, 60, 3190, 3407, 1, 1, 1, 1);
+		}
+
+		// Step 5: End of slide -> Turn & Leap to final roof
+		else if (hotSpot(c, 3190, 3407)) {
+			c.turnPlayerTo(3192, 3405);
+			c.setMove(new int[][]{{3192, 3405}}, "EAST", 3067, -1, 30, 60, 3192, 3405, 1, 1, 1, 3);
+
+			// Finalize the obstacle progress
+			c.getAgilityHandler().RoofAgilityProgress[2][3] = true;
+			c.getAgilityHandler().lapProgress(c, 3, RooftopVarrock.BALANCE_WALL_JUMP, 2);
+		}
 		if (agilityTimer > 0) {
 			agilityTimer--;
 		}
