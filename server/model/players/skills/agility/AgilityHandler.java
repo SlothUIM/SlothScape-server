@@ -21,6 +21,8 @@ import server.model.players.skills.pets.PetHandler.SkillPets;
 //import valius.model.items.ItemUtility;
 import server.util.Misc;
 
+import static server.model.players.skills.agility.impl.rooftop.RooftopDraynor.TIGHT_ROPE;
+import static server.model.players.skills.agility.impl.rooftop.RooftopDraynor.TIGHT_ROPE_2ND;
 import static server.model.players.skills.agility.impl.rooftop.RooftopVarrock.ROUGH_WALL;
 
 /**
@@ -516,37 +518,48 @@ public class AgilityHandler {
 		if (hotSpot(c, 3253, 3180)) {
 			delayEmote(c, "JUMP", 3259, 3179, 0, 2);
 		}
+
+		if (hotSpot(c, 3092, 3276)) {
+			c.setMove(
+					new int[][] { {3092, 3274}, {3092, 3272}, {3092, 3270}, {3092, 3267} },
+					"SOUTH",
+					762,
+					-1,
+					25,   // speed1: 0 (No pauses between tiles)
+					50,  // speed2: 60 (2 ticks per segment for smooth walking)
+					3092, 3267,
+					2, 1, 1, c.getHeight()
+			);
+
+			c.getAgilityHandler().RoofAgilityProgress[0][2] = true;
+			c.getAgilityHandler().lapProgress(c, 2, TIGHT_ROPE_2ND, 0);
+		}
 // =========================================================
 		// VARROCK ROOFTOP: BALANCE WALL JUMP (Chain Reaction)
 		// =========================================================
 
 		// Step 1: End of Run-up -> Leap to Wall
 		if (hotSpot(c, 3193, 3416)) {
-			c.setLastKnownLocation(c.getLocation());
 			c.setMove(new int[][]{{3190, 3414}}, "WEST", 2583, -1, 30, 60, 3190, 3414, 1, 1, 1, 1);
 		}
 
 		// Step 2: Land on wall -> Start slow shimmy
 		else if (hotSpot(c, 3190, 3414)) {
-			c.setLastKnownLocation(c.getLocation());
-			c.setMove(new int[][]{{3190, 3413}, {3190, 3411}}, "WEST", 1122, -1, 30, 60, 3190, 3411, 1, 1, 1, 1);
+			c.setMove(new int[][]{{3190, 3413}, {3190, 3411}}, "WEST", 1122, -1, 0, 60, 3190, 3411, 1, 1, 1, 1);
 		}
 
 		// Step 3: End of shimmy -> The Reach (Anim 1124)
 		else if (hotSpot(c, 3190, 3411)) {
-			c.setLastKnownLocation(c.getLocation());
-			c.setMove(new int[][]{{3190, 3410}}, "WEST", 1124, -1, 30, 60, 3190, 3410, 1, 1, 1, 1);
+			c.setMove(new int[][]{{3190, 3410}}, "WEST", 1124, -1, 0, 60, 3190, 3410, 1, 1, 1, 1);
 		}
 
 		// Step 4: After reach -> Final slide down the edge
 		else if (hotSpot(c, 3190, 3410)) {
-			c.setLastKnownLocation(c.getLocation());
-			c.setMove(new int[][]{{3190, 3407}}, "SOUTH", 756, -1, 30, 60, 3190, 3407, 1, 1, 1, 1);
+			c.setMove(new int[][]{{3190, 3407}}, "SOUTH", 756, -1, 0, 60, 3190, 3407, 1, 1, 1, 1);
 		}
 
 		// Step 5: End of slide -> Turn & Leap to final roof
 		else if (hotSpot(c, 3190, 3407)) {
-			c.setLastKnownLocation(c.getLocation());
 			c.turnPlayerTo(3192, 3405);
 			c.setMove(new int[][]{{3192, 3405}}, "EAST", 3067, -1, 30, 60, 3192, 3405, 1, 1, 1, 3);
 

@@ -204,7 +204,7 @@ public class PlayerHandler {
 	}
 
 	public void updateNPC(Player plr, Buffer str) {
-		//synchronized (plr) {
+		synchronized (plr) {
 		updateBlock.currentOffset = 0;
 
 		str.createFrameVarSizeWord(65);
@@ -266,7 +266,7 @@ public class PlayerHandler {
 			str.finishBitAccess();
 		}
 		str.endFrameVarSizeWord();
-		//}
+		}
 	}
 	private Buffer updateBlock = new Buffer(new byte[Config.BUFFER_SIZE]);
 	private boolean updateCancelled;

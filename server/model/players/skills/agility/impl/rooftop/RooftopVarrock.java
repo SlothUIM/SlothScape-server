@@ -34,8 +34,23 @@ public class RooftopVarrock {
 
 		switch (objectId) {
 		case ROUGH_WALL:
-			c.setMove(new int[][]{{3221, 3414}}, "WEST", 828, -1, 60, 90, 3221, 3414, 2, 1, 1, 3);
-
+			c.setMove(new int[][]{{3220, 3414}}, "WEST", 828, -1, 25, 0, 3220, 3414, 2, 1, 1, 3);
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (c.getX() == 3220 && c.getY() == 3414 && c.getHeight() == 3) {
+						// Speed 35 gives enough time for the climb animation to finish
+						c.setMove(new int[][]{{3219, 3414}}, "WEST", 2585, -1, 0, 90, 3219, 3414, 0, 1, 1, 3);
+						//container.stop();
+					} else if (c.getX() == 3219 && c.getY() == 3414 && c.getHeight() == 3) {
+						container.stop();
+					}
+				}
+				@Override
+				public void stop() {}
+			}, 2); // 2 Ticks to allow the first climb to finish visually
+			c.getAgilityHandler().RoofAgilityProgress[2][0] = true;
+			c.getAgilityHandler().lapProgress(c, 0, ROUGH_WALL, 2);
 			return true;
 
 		case CLOTHES_LINE:
@@ -82,7 +97,7 @@ public class RooftopVarrock {
 						if (c.getY() == 3399 && c.getHeight() == 2) {
 							c.setMove(new int[][]{{c.getX(), 3399}}, "SOUTH", 2585, -1, 30, 60, c.getX(), 3399, 1, 1, 1, 3);
 						} else if (c.getY() == 3399 && c.getHeight() == 3) {
-							c.setMove(new int[][]{{c.getX(), 3398}}, "SOUTH", 1209, -1, 30, 60, c.getX(), 3398, 1, 1, 1, 3);
+							c.setMove(new int[][]{{c.getX(), 3398}}, "SOUTH", 1209, -1, 0, 30, c.getX(), 3398, 1, 1, 1, 3);
 						} else if (c.getY() == 3398 && c.getHeight() == 3) {
 							c.getAgilityHandler().RoofAgilityProgress[2][4] = true;
 							c.getAgilityHandler().lapProgress(c, 4, LEAP_2ND_GAP, 2);
@@ -118,9 +133,20 @@ public class RooftopVarrock {
 			return true;
 
 		case JUMP_OFF_EDGE:
-			c.getAgilityHandler().roofTopFinished(c, 7, 238, 8000, 2);
 			// Height 0 dismount
-			c.setMove(new int[][]{{3236, 3416}, {3236, 3417}}, "NORTH", 2586, -1, 30, 60, 3236, 3417, 2, 1, 1, 0);
+			c.setMove(new int[][]{{3236, 3416}}, "NORTH", 2586, -1, 0, 30, 3236, 3416, 2, 1, 1, 2);
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (c.getY() == 3416 && c.getHeight() == 2) {
+						c.setMove(new int[][]{{3236, 3417}}, "NORTH", 2586, -1, 0, 60, 3236, 3417, 2, 1, 1, 0);
+						container.stop();
+					}
+				}
+				@Override
+				public void stop() {}
+			}, 2);
+			c.getAgilityHandler().roofTopFinished(c, 7, 238, 8000, 2);
 			c.VarrockRooftopLapCount++;
 			c.sendMessage("Your Varrock Rooftop lap count is: "+c.VarrockRooftopLapCount);
 			c.getAD().completeAchievement("VarrockMedium", "Complete a lap of the Varrock Rooftop Course.", 13);

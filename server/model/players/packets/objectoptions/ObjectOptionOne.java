@@ -166,6 +166,9 @@ public class ObjectOptionOne {
 		if (c.getRoofTopArdougne().execute(c, objectId)) {
 			return;
 		}
+		if (c.getRoofTopCanifis().execute(c, objectId)) {
+			return;
+		}
 		if (c.getLighthouse().execute(c, objectId)) {
 			return;
 		}//26711

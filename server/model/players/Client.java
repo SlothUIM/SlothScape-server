@@ -89,10 +89,7 @@ public class Client extends Player {
 	private GnomeAgility gnomeAgility = new GnomeAgility();
 	private WildernessAgility wildernessAgility = new WildernessAgility();
 	private Shortcuts shortcuts = new Shortcuts();
-	private RooftopSeers rooftopSeers = new RooftopSeers();
-	private RooftopFalador rooftopFalador = new RooftopFalador();
-	private RooftopVarrock rooftopVarrock = new RooftopVarrock();
-	private RooftopArdougne rooftopArdougne = new RooftopArdougne();
+
 	private BarbarianAgility barbarianAgility = new BarbarianAgility();
 	private Lighthouse lighthouse = new Lighthouse();
 	private Agility agility = new Agility(this);
@@ -415,21 +412,7 @@ public void homeTeleport(int x, int y, int h) {
 		return shortcuts;
 	}
 
-	public RooftopSeers getRoofTopSeers() {
-		return rooftopSeers;
-	}
 
-	public RooftopFalador getRoofTopFalador() {
-		return rooftopFalador;
-	}
-
-	public RooftopVarrock getRoofTopVarrock() {
-		return rooftopVarrock;
-	}
-
-	public RooftopArdougne getRoofTopArdougne() {
-		return rooftopArdougne;
-	}
 
 	public Lighthouse getLighthouse() {
 		return lighthouse;

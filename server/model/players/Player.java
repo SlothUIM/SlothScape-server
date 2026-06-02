@@ -15,6 +15,7 @@ import server.model.minigames.cox.CoxButtonHandler;
 import server.model.minigames.cox.RaidSession;
 import server.model.minigames.raids.RaidParty;
 import server.model.players.skills.*;
+import server.model.players.skills.agility.impl.rooftop.*;
 import server.util.Stopwatch;
 import server.util.definitions.AnimationDefinition;
 
@@ -83,11 +84,6 @@ import server.model.players.skills.agility.impl.GnomeAgility;
 import server.model.players.skills.agility.impl.Lighthouse;
 import server.model.players.skills.agility.impl.Shortcuts;
 import server.model.players.skills.agility.impl.WildernessAgility;
-import server.model.players.skills.agility.impl.rooftop.RooftopArdougne;
-import server.model.players.skills.agility.impl.rooftop.RooftopDraynor;
-import server.model.players.skills.agility.impl.rooftop.RooftopFalador;
-import server.model.players.skills.agility.impl.rooftop.RooftopSeers;
-import server.model.players.skills.agility.impl.rooftop.RooftopVarrock;
 import server.model.players.skills.farming.Allotments;
 import server.model.players.skills.farming.Bushes;
 import server.model.players.skills.farming.Compost;
@@ -3764,6 +3760,11 @@ public boolean isNewWalkCmdIsRunning() {
 		// getPA().sendFrame36(287, isFixed);
 		setSidebarInterface(15, -1);
 	}
+	private RooftopSeers rooftopSeers = new RooftopSeers();
+	private RooftopFalador rooftopFalador = new RooftopFalador();
+	private RooftopVarrock rooftopVarrock = new RooftopVarrock();
+	private RooftopArdougne rooftopArdougne = new RooftopArdougne();
+	private RooftopCanifis rooftopCanifis = new RooftopCanifis();
 	private DamageQueueEvent damageQueue = new DamageQueueEvent(this);
 
 	private DialogueHandler dialogueHandler = new DialogueHandler(this);
@@ -4198,11 +4199,7 @@ public boolean isNewWalkCmdIsRunning() {
 	private GnomeAgility gnomeAgility = new GnomeAgility();
 	private WildernessAgility wildernessAgility = new WildernessAgility();
 	private Shortcuts shortcuts = new Shortcuts();
-	private RooftopSeers rooftopSeers = new RooftopSeers();
-	private RooftopFalador rooftopFalador = new RooftopFalador();
-	private RooftopVarrock rooftopVarrock = new RooftopVarrock();
 	private RooftopDraynor rooftopDraynor = new RooftopDraynor();
-	private RooftopArdougne rooftopArdougne = new RooftopArdougne();
 	private BarbarianAgility barbarianAgility = new BarbarianAgility();
 	private Herblore herblore = new Herblore(this);
 	private Lighthouse lighthouse = new Lighthouse();
@@ -4277,6 +4274,9 @@ public boolean isNewWalkCmdIsRunning() {
 
 	public RooftopArdougne getRoofTopArdougne() {
 		return rooftopArdougne;
+	}
+	public RooftopCanifis getRoofTopCanifis() {
+		return rooftopCanifis;
 	}
 
 	public boolean checkCombatDistance(Player attacker, Player target) {
