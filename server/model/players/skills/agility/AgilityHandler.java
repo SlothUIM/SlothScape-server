@@ -503,9 +503,11 @@ public class AgilityHandler {
 			c.setMove(new int[][]{{3208, 3414}}, "WEST", 741, -1, 15, 30, 3208, 3414, 1, 1, 1, c.getHeight());
 		}
 		if (hotSpot(c, 3198, 3416)) {
+			c.setLastKnownLocation(c.getLocation());
 			c.setMove(new int[][]{{3197, 3416}}, "WEST", 2588, -1, 0, 20, 3197, 3416, 2, 1, 1, 1);
 		}
-		if (hotSpot(c, 3220, 3414) && c.getHeight() == 3) {
+		if (hotSpot(c, 3221, 3414) && c.getHeight() == 3) {
+			c.setLastKnownLocation(c.getLocation());
 			c.setMove(new int[][]{{3219, 3414}}, "WEST", 2585, -1, 30, 60, 3219, 3414, 1, 1, 1, 3);
 
 			c.getAgilityHandler().RoofAgilityProgress[2][0] = true;
@@ -520,26 +522,31 @@ public class AgilityHandler {
 
 		// Step 1: End of Run-up -> Leap to Wall
 		if (hotSpot(c, 3193, 3416)) {
+			c.setLastKnownLocation(c.getLocation());
 			c.setMove(new int[][]{{3190, 3414}}, "WEST", 2583, -1, 30, 60, 3190, 3414, 1, 1, 1, 1);
 		}
 
 		// Step 2: Land on wall -> Start slow shimmy
 		else if (hotSpot(c, 3190, 3414)) {
+			c.setLastKnownLocation(c.getLocation());
 			c.setMove(new int[][]{{3190, 3413}, {3190, 3411}}, "WEST", 1122, -1, 30, 60, 3190, 3411, 1, 1, 1, 1);
 		}
 
 		// Step 3: End of shimmy -> The Reach (Anim 1124)
 		else if (hotSpot(c, 3190, 3411)) {
+			c.setLastKnownLocation(c.getLocation());
 			c.setMove(new int[][]{{3190, 3410}}, "WEST", 1124, -1, 30, 60, 3190, 3410, 1, 1, 1, 1);
 		}
 
 		// Step 4: After reach -> Final slide down the edge
 		else if (hotSpot(c, 3190, 3410)) {
+			c.setLastKnownLocation(c.getLocation());
 			c.setMove(new int[][]{{3190, 3407}}, "SOUTH", 756, -1, 30, 60, 3190, 3407, 1, 1, 1, 1);
 		}
 
 		// Step 5: End of slide -> Turn & Leap to final roof
 		else if (hotSpot(c, 3190, 3407)) {
+			c.setLastKnownLocation(c.getLocation());
 			c.turnPlayerTo(3192, 3405);
 			c.setMove(new int[][]{{3192, 3405}}, "EAST", 3067, -1, 30, 60, 3192, 3405, 1, 1, 1, 3);
 

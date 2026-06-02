@@ -34,7 +34,7 @@ public class RooftopVarrock {
 
 		switch (objectId) {
 		case ROUGH_WALL:
-			c.setMove(new int[][]{{3220, 3414}}, "WEST", 828, -1, 30, 60, 3220, 3414, 2, 1, 1, 3);
+			c.setMove(new int[][]{{3221, 3414}}, "WEST", 828, -1, 60, 90, 3221, 3414, 2, 1, 1, 3);
 
 			return true;
 
