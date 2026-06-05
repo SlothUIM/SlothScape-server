@@ -2373,25 +2373,34 @@ public class Player extends Entity {
 	    });
 	}
 	public void setMove(int[][] path, String direction, int anim, int failAnim, int speed1, int speed2, int endX, int endY, int offset, int agilReq, int noFailLvl, int height) {
-	    if (isForceMovementActive()) return;
+		if (isForceMovementActive()) return;
 
-	    // 1. Kill existing pathing from the initial click
-	    getMovementQueue().stop();
-	    
-	    forceMovementActive = true;
-	    isRunning2 = false;
-	    setAppearanceUpdateRequired(true);
-	    this.stopMovement();
+		// 1. Kill existing pathing from the initial click
+		getMovementQueue().stop();
 
-	    processNextMove(0, path, direction, anim, failAnim, speed1, speed2, endX, endY, offset, agilReq, noFailLvl, height);
+		forceMovementActive = true;
+		isRunning2 = false;
+		setAppearanceUpdateRequired(true);
+		this.stopMovement();
+
+		processNextMove(0, path, direction, anim, failAnim, speed1, speed2, endX, endY, offset, agilReq, noFailLvl, height);
 	}
+
 	private int getForceMoveDirection(int startX, int startY, int targetX, int targetY) {
-	    if (targetY > startY) return 0; // NORTH
-	    if (targetX > startX) return 1; // EAST
-	    if (targetY < startY) return 2; // SOUTH
-	    if (targetX < startX) return 3; // WEST
-	    return 1; // Default
+		// MUST check diagonals first!
+		if (targetX > startX && targetY > startY) return 4; // NORTHEAST
+		if (targetX > startX && targetY < startY) return 5; // SOUTHEAST
+		if (targetX < startX && targetY < startY) return 6; // SOUTHWEST
+		if (targetX < startX && targetY > startY) return 7; // NORTHWEST
+
+		// Cardinal directions fallback
+		if (targetY > startY) return 0; // NORTH
+		if (targetX > startX) return 1; // EAST
+		if (targetY < startY) return 2; // SOUTH
+		if (targetX < startX) return 3; // WEST
+		return 1; // Default
 	}
+
 	private void processNextMove(int index, int[][] path, String direction, int anim, int failAnim, int speed1, int speed2, int endX, int endY, int offset, int agilReq, int noFailLvl, int height) {
 		if (index >= path.length) {
 			finalizeMove();
@@ -2435,6 +2444,10 @@ public class Player extends Entity {
 			case "EAST":  this.direction = 1; break;
 			case "SOUTH": this.direction = 2; break;
 			case "WEST":  this.direction = 3; break;
+			case "NORTHEAST": this.direction = 4; break;
+			case "SOUTHEAST": this.direction = 5; break;
+			case "SOUTHWEST": this.direction = 6; break;
+			case "NORTHWEST": this.direction = 7; break;
 		}
 
 		this.updateRequired = true;

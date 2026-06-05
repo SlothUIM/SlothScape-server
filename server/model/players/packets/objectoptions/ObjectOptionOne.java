@@ -109,6 +109,10 @@ public class ObjectOptionOne {
 		int objectY = worldObject.getY();
 		c.getPA().resetVariables();
 		c.clickObjectType = 0;
+
+		if (c.getRoofTopCanifis().execute(c, objectId)) {
+			return;
+		}
 		c.turnPlayerTo(objectX, objectY);
 		//c.getFarming().patchObjectInteraction(objectId, -1, objectX, objectY);
 		//c.boneOnAltar = false;
@@ -164,9 +168,6 @@ public class ObjectOptionOne {
 			return;
 		}
 		if (c.getRoofTopArdougne().execute(c, objectId)) {
-			return;
-		}
-		if (c.getRoofTopCanifis().execute(c, objectId)) {
 			return;
 		}
 		if (c.getLighthouse().execute(c, objectId)) {
