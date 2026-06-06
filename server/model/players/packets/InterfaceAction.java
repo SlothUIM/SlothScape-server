@@ -30,7 +30,7 @@ public class InterfaceAction implements PacketType {
 					player.sendMessage("You cannot hop to this world.");
 					return;
 				} else if(worldNum == 4 && player.playerName.equalsIgnoreCase("sloth")){
-					worldNum = 2;
+					worldNum = 4;
 				}
 
 				// Assuming World 1 is port 43594, World 2 is 43595, etc.

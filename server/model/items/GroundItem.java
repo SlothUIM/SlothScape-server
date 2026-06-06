@@ -22,18 +22,26 @@ public class GroundItem {
 
 	/**
 	 * The identification value of the item that makes it unique from the rest
-	 */
-	private int itemId;
+     * -- GETTER --
+     *  The item identification value
+     *
+     * @return the item id
+
+     */
+	@Getter
+    private int itemId;
 
 	/**
 	 * The location of the item on the x-axis
 	 */
-	private int itemX;
+	@Getter
+    private int itemX;
 
 	/**
 	 * The location of the item on the y-axis
 	 */
-	private int itemY;
+	@Getter
+    private int itemY;
 
 	/**
 	 * The height level of the item on the ground
@@ -42,8 +50,14 @@ public class GroundItem {
 
 	/**
 	 * The amount of the item.
-	 */
-	private int itemAmount;
+     * -- GETTER --
+     *  The amount of the item that exists at this position
+     *
+     * @return the amount of the item
+
+     */
+	@Getter
+    private int itemAmount;
 
 	public int hideTicks;
 
@@ -73,16 +87,7 @@ public class GroundItem {
 		this.ownerName = name;
 	}
 
-	/**
-	 * The item identification value
-	 * 
-	 * @return the item id
-	 */
-	public int getItemId() {
-		return itemId;
-	}
-
-	/**
+    /**
 	 * Retrieves the absolute x position of the item on the map
 	 * 
 	 * @return the x position
@@ -100,16 +105,7 @@ public class GroundItem {
 		return itemY;
 	}
 
-	/**
-	 * The amount of the item that exists at this position
-	 * 
-	 * @return the amount of the item
-	 */
-	public int getItemAmount() {
-		return itemAmount;
-	}
-
-	/**
+    /**
 	 * Item name.
 	 * 
 	 * @return
@@ -127,14 +123,7 @@ public class GroundItem {
 		return itemZ;
 	}
 
-	public int getItemX() {
-		return itemX;
-	}
-
-	public int getItemY() {
-		return itemY;
-	}
-	public int getItemZ() {
+    public int getItemZ() {
 		return itemZ;
 	}
 	public String getName() {

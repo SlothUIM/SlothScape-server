@@ -16,6 +16,7 @@ public class AgilitySequence {
     private final int courseIndex;
     private final int obstacleIndex;
     private final int objectId;
+    private int baseXp = 0; // Default to 0
     private boolean isFinish = false;
     private int finishXp;
     private int finishPet;
@@ -67,7 +68,21 @@ public class AgilitySequence {
         currentActionBuffer = () -> { prev.run(); c.getPA().movePlayer(x, y, z); };
         return this;
     }
+    public AgilitySequence xp(int xp) {
+        this.baseXp = xp;
+        return this;
+    }
 
+    public AgilitySequence hotSpot(int x, int y) {
+        Runnable prev = currentActionBuffer;
+        currentActionBuffer = () -> {
+            prev.run();
+            c.getMovementQueue().stop(); // Kill the default object pathing
+            c.getMovementQueue().addStep(x, y, c.getHeight()); // Force walk to the hotspot
+        };
+        waitUntil(x, y, -1); // Wait until they physically arrive at the hotspot to continue
+        return this;
+    }
     public AgilitySequence slide(int pathX, int pathY, int endX, int endY, int z, int offset, String dir, int anim, int spd1, int spd2) {
         Runnable prev = currentActionBuffer;
         currentActionBuffer = () -> { prev.run(); c.setMove(new int[][]{{pathX, pathY}}, dir, anim, -1, spd1, spd2, endX, endY, offset, 1, 1, z); };
@@ -153,7 +168,8 @@ public class AgilitySequence {
         if (isFinish) {
             c.getAgilityHandler().roofTopFinished(c, obstacleIndex, finishXp, finishPet, courseIndex);
         } else {
-            c.getAgilityHandler().lapProgress(c, obstacleIndex, objectId, courseIndex);
+            // FIXED: Now passes your custom baseXp to the handler
+            c.getAgilityHandler().lapProgress(c, obstacleIndex, objectId, courseIndex, baseXp);
         }
     }
 }

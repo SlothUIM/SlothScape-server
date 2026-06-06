@@ -1,10 +1,13 @@
 package server.model.players.skills;
 
 import java.util.stream.Stream;
+
+import lombok.Getter;
 import server.model.players.Client;
 
 import server.util.Misc;
 
+@Getter
 public enum Skill {
 		ATTACK(0), 
 		DEFENCE(1), 
@@ -37,11 +40,7 @@ public enum Skill {
 		this.id = id;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	@Override
+    @Override
 	public String toString() {
 		String name = name().toLowerCase();
 		return Misc.capitalize(name);

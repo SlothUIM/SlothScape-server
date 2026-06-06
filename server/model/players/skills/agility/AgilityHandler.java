@@ -2,6 +2,7 @@ package server.model.players.skills.agility;
 
 //import valius.content.achievement.AchievementType;
 //import valius.content.achievement.Achievements;
+import server.Config;
 import server.event.Event;
 import server.world.World;
 import server.model.players.Player;
@@ -433,21 +434,32 @@ public class AgilityHandler {
 		}
 		if(agilityProgress[progress]) {
 			double exp = getXp(obj) * 5;
-			c.getSkills().addExperience((int)exp, Skill.AGILITY);
+			c.getPA().addSkillXP(((int)exp * (int)Config.SERVER_EXP_BONUS), Skill.AGILITY.getId());
 			lastClick = System.currentTimeMillis();
 		}
 	}
 
-	public void lapProgress(Player c, int progress, int obj, int area) {
+	public void lapProgress(Player c, int progress, int obj, int baseXp) {
+		if (System.currentTimeMillis() - lastClick < OBJECT_CLICK_DELAY) {
+			return;
+		}
+		if(agilityProgress[progress]) {
+			double exp = baseXp * 5; // Applies your * 5 multiplier
+			c.getPA().addSkillXP(((int)exp * (int)Config.SERVER_EXP_BONUS), Skill.AGILITY.getId());
+			lastClick = System.currentTimeMillis();
+		}
+	}
+
+	public void lapProgress(Player c, int progress, int obj, int area, int baseXp) {
 		if (System.currentTimeMillis() - lastClick < OBJECT_CLICK_DELAY) {
 			return;
 		} else if(agilityProgress[progress]) {
-			double exp = getXp(obj) * 5;
-			c.getSkills().addExperience((int)exp, Skill.AGILITY);
+			double exp = baseXp * 5; // Applies your * 5 multiplier
+			c.getPA().addSkillXP(((int)exp * (int)Config.SERVER_EXP_BONUS), Skill.AGILITY.getId());
 			lastClick = System.currentTimeMillis();
 		} else if(RoofAgilityProgress[area][progress]) {
-			double exp = getXp(obj) * 5;
-			c.getSkills().addExperience((int)exp, Skill.AGILITY);
+			double exp = baseXp * 5; // Applies your * 5 multiplier
+			c.getPA().addSkillXP(((int)exp * (int)Config.SERVER_EXP_BONUS), Skill.AGILITY.getId());
 			lastClick = System.currentTimeMillis();
 		}
 	}
@@ -457,7 +469,7 @@ public class AgilityHandler {
 		if (agilityProgress[progress]) {
 			resetAgilityProgress();
 			c.sendMessage("You received some XP for completing the track!");
-			c.getSkills().addExperience(experience, Skill.AGILITY);
+			c.getPA().addSkillXP(((int)experience * (int)Config.SERVER_EXP_BONUS), Skill.AGILITY.getId());
 			if (Misc.random(10) == 0) {
 				int sPoints = Misc.random(10);
 				c.sendMessage("@pur@You receive " + sPoints + " Skill Points.");
@@ -474,7 +486,7 @@ public class AgilityHandler {
 		if (agilityProgress[progress] || RoofAgilityProgress[area][progress]) {
 			resetAgilityProgress();
 			c.sendMessage("You received some XP for completing the track!");
-			c.getSkills().addExperience(experience, Skill.AGILITY);
+			c.getPA().addSkillXP(experience, Skill.AGILITY.getId());
 			if (Misc.random(10) == 0) {
 				int sPoints = Misc.random(10);
 				c.sendMessage("@pur@You receive " + sPoints + " Skill Points.");

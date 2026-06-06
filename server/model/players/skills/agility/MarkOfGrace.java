@@ -99,7 +99,8 @@ public class MarkOfGrace {
 			int y = targetCoords[i][1];
 			int z = targetCoords[i][2];
 
-			World.getWorld().itemHandler.createGroundItem(c, MARK_OF_GRACE, x, y, z, 1, c.playerId);
+			//World.getWorld().itemHandler.createGroundItem(c, MARK_OF_GRACE, x, y, z, 1, c.playerId);
+			World.getWorld().itemHandler.createGroundItem(c, MARK_OF_GRACE, x, y, z, 1);
 			c.lastMarkDropped = System.currentTimeMillis();
 			c.sendMessage("<col=005500>You notice a mark of grace on the roof.</col>");
 		}

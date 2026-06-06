@@ -32,6 +32,7 @@ public class RooftopCanifis {
                         .stopAnim()
                         .teleport(3506, 3492, 2)
                         .waitUntil(3506, 3492, 2)
+                        .xp(10)
                         .execute();
                 return true;
 
@@ -47,6 +48,7 @@ public class RooftopCanifis {
                         .anim(2588)
                         .teleport(3502, 3504, 2)
                         .waitUntil(3502, 3504, 2)
+                        .xp(8)
                         .execute();
                 return true;
 
@@ -59,6 +61,7 @@ public class RooftopCanifis {
                         .waitUntil(3493, 3504, -1)
                         .walk(3492, 3504, 2)
                         .waitUntil(3492, 3504, -1)
+                        .xp(8)
                         .execute();
                 return true;
 
@@ -70,6 +73,7 @@ public class RooftopCanifis {
                         .waitUntil(3480, 3499, 3)
                         .stopAnim()
                         .teleport(3479, 3499, 3)
+                        .xp(10)
                         .execute();
                 return true;
 
@@ -82,6 +86,7 @@ public class RooftopCanifis {
                         .anim(2588)
                         .teleport(3479, 3486, 2)
                         .waitUntil(3479, 3486, -1)
+                        .xp(8)
                         .execute();
                 return true;
 
@@ -97,6 +102,7 @@ public class RooftopCanifis {
                         .waitUntil(3489, 3476, -1)
                         .anim(2588)
                         .teleport(3489, 3476, 3)
+                        .xp(10)
                         .execute();
                 return true;
 
@@ -109,6 +115,7 @@ public class RooftopCanifis {
                         .anim(2588)
                         .teleport(3510, 3476, 2)
                         .waitUntil(3510, 3476, -1)
+                        .xp(11)
                         .execute();
                 return true;
 
@@ -120,7 +127,8 @@ public class RooftopCanifis {
                         .waitUntil(3510, 3482, -1)
                         .anim(2588)
                         .teleport(3511, 3485, 0)
-                        .finish(8000, 238)
+                        .finish(175, 238)
+
                         .execute();
                 return true;
         }

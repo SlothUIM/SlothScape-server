@@ -165,29 +165,25 @@ public class ItemHandler {
 	 * Reloads any items if you enter a new region
 	 **/
 	public void reloadItems(Player player) {
+		if (player == null) return;
+
 		for (GroundItem i : items) {
-			if (player != null) {
-				if (player.getItems().tradeable(i.getItemId())
-						|| i.getName().equalsIgnoreCase(player.playerName)) {
-					if (player.distanceToPoint(i.getItemX(), i.getItemY()) <= 60) {
-						if (i.hideTicks > 0
-								&& i.getName().equalsIgnoreCase(player.playerName)) {
-							player.getItems().removeGroundItem(i.getItemId(),
-									i.getItemX(), i.getItemY(),
-									i.getItemAmount());
-							player.getItems().createGroundItem(i.getItemId(),
-									i.getItemX(), i.getItemY(),
-									i.getItemAmount());
-						}
-						if (i.hideTicks == 0) {
-							player.getItems().removeGroundItem(i.getItemId(),
-									i.getItemX(), i.getItemY(),
-									i.getItemAmount());
-							player.getItems().createGroundItem(i.getItemId(),
-									i.getItemX(), i.getItemY(),
-									i.getItemAmount());
-						}
+			if (i == null) continue;
+
+			// 1. Check distance AND Height Level (Crucial fix!)
+			if (player.distanceToPoint(i.getItemX(), i.getItemY()) <= 60 && player.getHeight() == i.getHeight()) {
+
+				// 2. Check if the player is allowed to see the item
+				if (player.getItems().isTradable(i.getItemId()) || i.getName().equalsIgnoreCase(player.playerName)) {
+
+					// 3. If it's private (hideTicks > 0) and not theirs, skip it
+					if (i.hideTicks > 0 && !i.getName().equalsIgnoreCase(player.playerName)) {
+						continue;
 					}
+
+					// 4. Refresh the item visually for the player
+					player.getItems().removeGroundItem(i.getItemId(), i.getItemX(), i.getItemY(), i.getItemAmount());
+					player.getItems().createGroundItem(i.getItemId(), i.getItemX(), i.getItemY(), i.getItemAmount());
 				}
 			}
 		}
@@ -197,169 +193,152 @@ public class ItemHandler {
 	public static int index = 0; // Assuming MAX_ITEMS is the maximum number of items
 
 	public void process() {
-	    ArrayList<GroundItem> toRemove = new ArrayList<GroundItem>();
-	    
-	    // Handle standard ground item timers (Visibility and Despawn)
-	    for (int j = 0; j < items.size(); j++) {
-	        GroundItem i = items.get(j);
-	        if (i != null) {
-	            // 1. Handle "Private" items becoming "Global"
-	            if (i.hideTicks > 0) {
-	                i.hideTicks--;
-	                if (i.hideTicks == 0) {
-	                    createGlobalItem(i);
-	                    i.removeTicks = HIDE_TICKS;
-	                }
-	            }
-	            
-	            // 2. Handle item despawning (Standard items only!)
-	            // We skip this if the name is "Global" so spawns don't disappear!
-	            if (!i.getName().equals("Global")) {
-	                if (i.removeTicks > 0) {
-	                    i.removeTicks--;
-	                    if (i.removeTicks == 0) {
-	                        toRemove.add(i);
-	                    }
-	                }
-	            }
-	        }
-	    }
+		ArrayList<GroundItem> toRemove = new ArrayList<>();
 
-	    // 3. Handle Global Respawn Timers
-	    for (GlobalDrop gd : globalDrops) {
-	        if (gd.taken) {
-	            if (gd.currentTicks > 0) {
-	                gd.currentTicks--;
-	            } else {
-	                gd.taken = false;
-	                // Create the item with the "Global" name tag
-	                GroundItem item = new GroundItem(gd.itemId, gd.x, gd.y, gd.z, gd.itemAmount, 0, "Global");
-	                items.add(item);
-	                createGlobalItem(item);
-	            }
-	        }
-	    }
+		// Handle standard ground item timers (Visibility and Despawn)
+		for (GroundItem i : items) {
+			if (i != null) {
+				// 1. Handle "Private" items becoming "Global"
+				if (i.hideTicks > 0) {
+					i.hideTicks--;
+					if (i.hideTicks == 0) {
+						createGlobalItem(i);
+						i.removeTicks = HIDE_TICKS;
+					}
+				}
 
-	    // 4. Clean up despawned items
-	    for (GroundItem i : toRemove) {
-	        removeGlobalItem(i, i.getItemId(), i.getX(), i.getY(), i.getItemAmount());
-	    }
+				// 2. Handle item despawning (Standard items only!)
+				if (!i.getName().equals("Global")) {
+					if (i.removeTicks > 0) {
+						i.removeTicks--;
+						if (i.removeTicks == 0) {
+							toRemove.add(i);
+						}
+					}
+				}
+			}
+		}
+
+		// 3. Handle Global Respawn Timers
+		for (GlobalDrop gd : globalDrops) {
+			if (gd.taken) {
+				if (gd.currentTicks > 0) {
+					gd.currentTicks--;
+				} else {
+					gd.taken = false;
+					GroundItem item = new GroundItem(gd.itemId, gd.x, gd.y, gd.z, gd.itemAmount, 0, "Global");
+					items.add(item);
+					createGlobalItem(item);
+				}
+			}
+		}
+
+		// 4. Clean up despawned items
+		for (GroundItem i : toRemove) {
+			removeGlobalItem(i, i.getItemId(), i.getItemX(), i.getItemY(), i.getItemAmount());
+		}
 	}
 	/**
 	 * Creates the ground item
 	 **/
-	
-	public void createGroundItem(Player c, int itemId, int itemX, int itemY, int height,
-			int itemAmount, int playerId) {
-		if (playerId < 0 || playerId > PlayerHandler.players.length - 1) {
+
+	public void createGroundItem(Player c, int itemId, int itemX, int itemY, int height, int itemAmount, int playerId) {
+		if (playerId < 0 || playerId >= PlayerHandler.players.length || c == null) {
 			return;
 		}
-		Player owner = c;
-		if (owner == null) {
-			return;
-		}
+
 		if (itemId > 0 && itemAmount > 0) {
 			if (itemId >= 2412 && itemId <= 2414) {
 				c.sendMessage("The cape vanishes as it touches the ground.");
 				return;
 			}
 			if (itemId > 4705 && itemId < 4760) {
-				for (int j = 0; j < Config.brokenBarrows.length; j++) {
-					if (Config.brokenBarrows[j][0] == itemId) {
-						itemId = Config.brokenBarrows[j][1];
+				for (int[] brokenBarrow : Config.brokenBarrows) {
+					if (brokenBarrow[0] == itemId) {
+						itemId = brokenBarrow[1];
 						break;
 					}
 				}
 			}
+
 			if (!Item.itemStackable[itemId] && itemAmount > 0) {
-				if (itemAmount > 28) {
-					itemAmount = 28;
-				}
+				if (itemAmount > 28) itemAmount = 28;
 				for (int j = 0; j < itemAmount; j++) {
 					c.getItems().createGroundItem(itemId, itemX, itemY, 1);
-					GroundItem item = new GroundItem(itemId, itemX, itemY, height, 1, HIDE_TICKS, owner.playerName);
-					if(owner.getInstance() != null) {
-						item.setInstance(owner.getInstance());
-					}
+					GroundItem item = new GroundItem(itemId, itemX, itemY, height, 1, HIDE_TICKS, c.playerName);
+					if (c.getInstance() != null) item.setInstance(c.getInstance());
 					items.add(item);
 				}
 			} else {
 				c.getItems().createGroundItem(itemId, itemX, itemY, itemAmount);
-				GroundItem item = new GroundItem(itemId, itemX, itemY, height, itemAmount, HIDE_TICKS,
-						owner.playerName);
-				if(owner.getInstance() != null) {
-					item.setInstance(owner.getInstance());
-				}
+				GroundItem item = new GroundItem(itemId, itemX, itemY, height, itemAmount, HIDE_TICKS, c.playerName);
+				if (c.getInstance() != null) item.setInstance(c.getInstance());
 				items.add(item);
 			}
-					id = itemId; // or whatever your actual despawn time is
 
-					timer = 600;
-					c.getPA().sendFrame178(id, timer, itemX, itemY);
+			// Fixed: Use local values directly, no static overwriting!
+			c.getPA().sendFrame178(itemId, 600, itemX, itemY);
 		}
 	}
-	
+
+	/**
+	 * Creates a ground item (Overload 2)
+	 * FIXED: Formatting for the rooftop conditional to prevent logic traps.
+	 */
 	public void createGroundItem(Player player, int itemId, int itemX, int itemY, int height, int itemAmount) {
 		if (itemId > 0 && itemAmount > 0) {
-//			if (itemId >= 2412 && itemId <= 2414) {
-//				player.sendMessage("The cape vanishes as it touches the ground.");
-//				return;
-//			}
 			if (!Item.itemStackable[itemId] && itemAmount > 0) {
-				if (itemAmount > 28) {
-					itemAmount = 28;
-				}
+				if (itemAmount > 28) itemAmount = 28;
 				for (int j = 0; j < itemAmount; j++) {
 					player.getItems().createGroundItem(itemId, itemX, itemY, 1);
 					GroundItem item = new GroundItem(itemId, itemX, itemY, height, 1, HIDE_TICKS, player.playerName);
-					if(player.getInstance() != null) {
-						item.setInstance(player.getInstance());
-					}
+					if (player.getInstance() != null) item.setInstance(player.getInstance());
 					items.add(item);
 				}
 			} else {
-				if (itemId != 11849 && !Boundary.isIn(player, Boundary.ROOFTOP_COURSES))
+				// Fixed Brackets!
+				if (itemId != 11849 && !Boundary.isIn(player, Boundary.ROOFTOP_COURSES)) {
 					player.getItems().createGroundItem(itemId, itemX, itemY, itemAmount);
-					GroundItem item = new GroundItem(itemId, itemX, itemY, height, itemAmount, HIDE_TICKS, player.playerName);
-					if(player.getInstance() != null) {
-						item.setInstance(player.getInstance());
-					}
-					items.add(item);
+				}
+
+				GroundItem item = new GroundItem(itemId, itemX, itemY, height, itemAmount, HIDE_TICKS, player.playerName);
+				if (player.getInstance() != null) item.setInstance(player.getInstance());
+				items.add(item);
 			}
-			id = itemId;
-			timer = 600;
-			player.getPA().sendFrame178(id, timer, itemX, itemY);
+
+			// Fixed: Use local values directly!
+			player.getPA().sendFrame178(itemId, 600, itemX, itemY);
 		}
 	}
+
 	/**
-	 * Shows items for everyone who is within 60 squares
-	 **/
+	 * Shows items for everyone who is within 60 squares and on the same height.
+	 */
 	public void createGlobalItem(GroundItem i) {
 		for (Player p : PlayerHandler.players) {
 			if (p != null) {
-				Player person = p;
-				if (!person.playerName.equalsIgnoreCase(i.getItemController())) {
-					if (!person.getItems().isTradable(i.getItemId())) {
-						continue;
-					}
-					if (person.distanceToPoint(i.getX(), i.getY()) <= 60 && person.getHeight() == i.getHeight()) {
-						person.getItems().createGroundItem(i.getItemId(), i.getX(), i.getY(), i.getItemAmount());
+				if (!p.playerName.equalsIgnoreCase(i.getItemController())) {
+					if (!p.getItems().isTradable(i.getItemId())) continue;
+
+					if (p.distanceToPoint(i.getItemX(), i.getItemY()) <= 60 && p.getHeight() == i.getHeight()) {
+						p.getItems().createGroundItem(i.getItemId(), i.getItemX(), i.getItemY(), i.getItemAmount());
 					}
 				}
 			}
 		}
 	}
-	public void createGlobalItem(int id) {
-		GroundItem i = items.get(id);
+
+	public void createGlobalItem(int indexId) {
+		GroundItem i = items.get(indexId);
+		if (i == null) return;
+
 		for (Player p : PlayerHandler.players) {
 			if (p != null) {
-				Player person = p;
-				if (!person.playerName.equalsIgnoreCase(i.getItemController())) {
-					if (!person.getItems().isTradable(i.getItemId())) {
-						continue;
-					}
-					if (person.distanceToPoint(i.getX(), i.getY()) <= 60 && person.getHeight() == i.getHeight()) {
-						person.getItems().createGroundItem(i.getItemId(), i.getX(), i.getY(), i.getItemAmount());
+				if (!p.playerName.equalsIgnoreCase(i.getItemController())) {
+					if (!p.getItems().isTradable(i.getItemId())) continue;
+
+					if (p.distanceToPoint(i.getItemX(), i.getItemY()) <= 60 && p.getHeight() == i.getHeight()) {
+						p.getItems().createGroundItem(i.getItemId(), i.getItemX(), i.getItemY(), i.getItemAmount());
 					}
 				}
 			}

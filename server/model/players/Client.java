@@ -51,8 +51,6 @@ public class Client extends Player {
 	public Buffer inStream = null, outStream = null;
 	public Channel session;
 	private ItemAssistant itemAssistant = new ItemAssistant(this);
-	//private GateHandler gateHandler = new GateHandler();
-
 	private ShopAssistant shopAssistant = new ShopAssistant(this);
 	private TradeAndDuel tradeAndDuel = new TradeAndDuel(this);
 	private PlayerAssistant playerAssistant = new PlayerAssistant(this);
@@ -92,7 +90,6 @@ public class Client extends Player {
 
 	private BarbarianAgility barbarianAgility = new BarbarianAgility();
 	private Lighthouse lighthouse = new Lighthouse();
-	private Agility agility = new Agility(this);
 	
 	private Cooking cooking = new Cooking(this);
 	private Crafting crafting = new Crafting(this);
@@ -224,83 +221,6 @@ public class Client extends Player {
 		this.toxicStaffOfTheDeadCharge = toxicStaffOfTheDeadCharge;
 	}
 
-	public boolean hideRoofs;
-	public boolean ScrollWheel;
-	public boolean transChat;
-	public boolean fogToggle;
-	public boolean smoothshading;
-	public boolean dataorbs;
-	public int CollLogOpen = 0;
-
-
-	
-	public static void deleteTime(Client c) {
-		c.doAmount--;
-	}
-public void homeTeleport(int x, int y, int h) {
-			if (homeTele == 18) {
-				startAnimation(1722);
-			} else if (homeTele == 17) {
-				startAnimation(1723);gfx0(800);				
-			} else if (homeTele == 16) {
-				startAnimation(1724);gfx0(801);	
-			} else if (homeTele == 15) {
-				startAnimation(1725);gfx0(802);		
-			} else if (homeTele == 14) {
-				startAnimation(2798);gfx0(1703);	
-			} else if (homeTele == 13) {
-				startAnimation(2799);gfx0(1704);				
-			} else if (homeTele == 12) {
-				startAnimation(2800);gfx0(1704);				
-			} else if (homeTele == 11) {
-				startAnimation(3195);gfx0(1704);			
-			} else if (homeTele == 10) {
-				startAnimation(4643);gfx0(1705);			
-			} else if (homeTele == 9) {
-				startAnimation(4645);gfx0(1706);
-			} else if (homeTele == 8) {
-				startAnimation(4646);gfx0(1707);			
-			} else if (homeTele == 7) {
-				startAnimation(4847);gfx0(1708);		
-			} else if (homeTele == 6) {
-				startAnimation(4848);gfx0(1709);		
-			} else if (homeTele == 5) {
-				startAnimation(4849);gfx0(1710);
-			} else if (homeTele == 4) {
-				startAnimation(4850);gfx0(1711);
-			} else if (homeTele == 3) {
-				startAnimation(4851);gfx0(1712);
-			} else if (homeTele == 2) {
-				startAnimation(4852);gfx0(1713);
-			} else if (homeTele == 1) {
-				homeTeleWaitTimer = 30000;
-				LasthomeTele = System.currentTimeMillis();
-				homeTele = 0;
-				teleportToX = x;
-				teleportToY = y;
-				setHeight(h);
-			}
-		}
-			/*public void handleTeleportRunes(int RuneId1, int RuneId2, int RuneId3, int amt1, int amt2, int amt3, int TeleX, int TeleY) {
-				if (hasRuneInPouch(RuneId1, RuneId2, RuneId3)) {
-					updatePouchRuneCount(RuneId1, amt1, RuneId2, amt2, RuneId3, amt3);
-					c.getPA().startTeleport(TeleX, TeleY, 0, "modern");
-				} else if (c.getItems().playerHasItem(RuneId1, amt1) && c.getItems().playerHasItem(RuneId2, amt2) && c.getItems().playerHasItem(RuneId3, amt3)) {
-					c.getItems().deleteItem(RuneId1, c.getItems().getItemSlot(RuneId1), amt1);
-					c.getItems().deleteItem(RuneId2, c.getItems().getItemSlot(RuneId2), amt2);
-					c.getItems().deleteItem(RuneId3, c.getItems().getItemSlot(RuneId3), amt3);
-					c.getPA().startTeleport(TeleX, TeleY, 0, "modern");
-				}
-			}*/
-
-	public static int totalEXP;
-	public static long CollLogTimer;
-	public static boolean newCollItem = false;
-	public long remainingTime;
-
-
-	public static int variousSettings[];
-	public static int anIntArray1232[];
 
 	public synchronized Buffer getInStream() {
 		return inStream;
