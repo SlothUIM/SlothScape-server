@@ -32,6 +32,7 @@ public class MarkOfGrace {
 	private static final int[][] POLLNIVNEACH_COORDINATES = { { 3351, 2962, 1 }, { 3354, 2975, 1 }, { 3358, 2984, 1 }, { 3360, 2993, 1 }, { 3365, 2976, 1 }, { 3368, 2982, 1 } };
 	private static final int[][] RELLEKKA_COORDINATES = { { 2622, 3676, 3 }, { 2617, 3662, 3 }, { 2628, 3652, 3 }, { 2643, 3650, 3 }, { 2649, 3659, 3 }, { 2658, 3670, 3 } };
 	private static final int[][] ARDOUGNE_COORDINATES = { { 2671, 3303, 3 }, { 2663, 3318, 3 }, { 2655, 3318, 3 }, { 2653, 3312, 3 }, { 2651, 3307, 3 }, { 2653, 3302, 3 }, { 2656, 3297, 3 }, { 2668, 3297, 0 } };
+	private static final int GRACE_SHOP_ID = 192;
 
 	public static void spawnMarks(Player c, String location) {
 		int[][] targetCoords = getCoordinates(location);
@@ -109,8 +110,8 @@ public class MarkOfGrace {
 	// --- GRACEFUL SHOP MECHANICS ---
 
 	public static void openGraceShop(Player c) {
-		c.sendMessage("Trade Grace in the Rogues' Den to access her shop interface.");
-		// c.getShops().openShop(GRACE_SHOP_ID);
+		//c.sendMessage("Trade Grace in the Rogues' Den to access her shop interface.");
+		c.getShops().openShop(GRACE_SHOP_ID);
 	}
 
 	public static boolean buyGracefulItem(Player c, int itemId) {
@@ -149,7 +150,7 @@ public class MarkOfGrace {
 
 	// --- UTILITY METHODS ---
 
-	private static int getGracefulCost(int itemId) {
+	public static int getGracefulCost(int itemId) {
         return switch (itemId) {
             case HOOD -> 35;
             case CAPE, BOOTS -> 40;
@@ -161,7 +162,7 @@ public class MarkOfGrace {
         };
 	}
 
-	private static boolean isGracefulPiece(int itemId) {
+	public static boolean isGracefulPiece(int itemId) {
 		// Base Graceful
         return itemId == HOOD || itemId == CAPE || itemId == TOP || itemId == LEGS || itemId == GLOVES || itemId == BOOTS;
 		// You would add colored graceful IDs here as well

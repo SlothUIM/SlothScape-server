@@ -4,6 +4,7 @@ package server.model.players.skills.agility;
 //import valius.content.achievement.Achievements;
 import server.Config;
 import server.event.Event;
+import server.model.npcs.NPC;
 import server.world.World;
 import server.model.players.Player;
 import server.model.items.Item;
@@ -451,9 +452,7 @@ public class AgilityHandler {
 	}
 
 	public void lapProgress(Player c, int progress, int obj, int area, int baseXp) {
-		if (System.currentTimeMillis() - lastClick < OBJECT_CLICK_DELAY) {
-			return;
-		} else if(agilityProgress[progress]) {
+		 if(agilityProgress[progress]) {
 			double exp = baseXp * 5; // Applies your * 5 multiplier
 			c.getPA().addSkillXP(((int)exp * (int)Config.SERVER_EXP_BONUS), Skill.AGILITY.getId());
 			lastClick = System.currentTimeMillis();
@@ -484,6 +483,7 @@ public class AgilityHandler {
 
 	public void roofTopFinished(Player c, int progress, int experience, int petChance, int area) {
 		if (agilityProgress[progress] || RoofAgilityProgress[area][progress]) {
+
 			resetAgilityProgress();
 			c.sendMessage("You received some XP for completing the track!");
 			c.getPA().addSkillXP(experience, Skill.AGILITY.getId());

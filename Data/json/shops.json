@@ -930,5 +930,20 @@
       {"id": 1595, "amount": 2}, {"id": 1733, "amount": 5}, {"id": 1734, "amount": 100},
       {"id": 1599, "amount": 2}, {"id": 3257, "amount": 2}, {"id": 1785, "amount": 2}
     ]
+  },
+  {
+    "shopId": 192,
+    "name": "Grace's Graceful Clothing",
+    "sellModifier": 1,
+    "buyModifier": 1,
+    "items": [
+      {"id": 11850, "amount": 100},  // Graceful hood
+      {"id": 11852, "amount": 100},  // Graceful cape
+      {"id": 11854, "amount": 100},  // Graceful top
+      {"id": 11856, "amount": 100},  // Graceful legs
+      {"id": 11858, "amount": 100},  // Graceful gloves
+      {"id": 11860, "amount": 100},  // Graceful boots
+      {"id": 12641, "amount": 1000}  // Amylase pack
+    ]
   }
 ]

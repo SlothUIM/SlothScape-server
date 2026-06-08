@@ -23,6 +23,7 @@ import server.model.players.packets.dialogue.npc.TindelMarchant;
 //import server.model.players.PlayerAssistant.PointExchange;
 import server.model.players.skills.Skill;
 import server.model.players.skills.agility.AgilityHandler;
+import server.model.players.skills.agility.MarkOfGrace;
 import server.model.players.skills.construction.sawmill.Sawmill;
 import server.model.players.skills.fishing.Fishing;
 import server.model.players.skills.fishing.spots.FishSpotDef;
@@ -335,7 +336,7 @@ public class NpcOptionTwo {
 			}
 			break;
 		case 5919: // Grace
-			player.getShops().openShop(18);
+			MarkOfGrace.openGraceShop(player);
 			break;
 		case 311:
 			player.getDH().sendDialogues(661, 311);

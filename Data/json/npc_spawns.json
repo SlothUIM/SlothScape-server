@@ -108100,12 +108100,24 @@
     "xPos": 2702,
     "yPos": 3463,
     "height": 2,
-    "walkType": 4,
-    "health": 1,
-    "maxHit": 1,
+    "walkType": 2,
+    "health": 0,
+    "maxHit": 0,
     "attack": 0,
     "defence": 0,
-    "name": "Unknown"
+    "name": "BigRedJapan"
+  },
+  {
+    "npcId": 5921,
+    "xPos": 3511,
+    "yPos": 3482,
+    "height": 2,
+    "walkType": 2,
+    "health": 0,
+    "maxHit": 0,
+    "attack": 0,
+    "defence": 0,
+    "name": "BigRedJapan"
   },
   {
     "npcId": 1642,

@@ -68,11 +68,8 @@ public class PlayerSave {
             JsonObject save = parser.parse(reader).getAsJsonObject();
 
             // --- ACCOUNT & SECURITY ---
-            String savedPass = save.get("password").getAsString();
-            if (!playerPass.equalsIgnoreCase(savedPass) && !Misc.basicEncrypt(playerPass).equals(savedPass)) {
-                return 3;
-            }
-            p.playerPass = savedPass;
+            // Trust the WebAuth password entirely, overwrite the local memory to keep it synced
+            p.playerPass = playerPass;
             p.playerRights = save.has("rights") ? save.get("rights").getAsInt() : 0;
             p.setEmail(save.has("email") ? save.get("email").getAsString() : "");
 

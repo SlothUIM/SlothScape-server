@@ -7,6 +7,7 @@ import server.model.items.ItemAssistant;
 import server.model.players.Client;
 import server.model.players.Player;
 import server.model.players.PlayerHandler;
+import server.model.players.skills.agility.MarkOfGrace;
 import server.world.ShopHandler;
 import server.world.World;
 
@@ -105,6 +106,9 @@ public class ShopAssistant {
 		if (shopId == 17 || shopId == 18) {
 			c.sendMessage(c.getItems().getItemName(removeId) + ": currently costs " + getSpecialItemValue(removeId) + " points.");
 			return;
+		}if (shopId == 192) {
+			c.sendMessage(c.getItems().getItemName(removeId) + ": currently costs " + getSpecialItemValue(removeId) + " Marks of grace.");
+			return;
 		}
 		if (shopId == 15) {
 			c.sendMessage("This item currently costs " + c.getItems().getUntradePrice(removeId) + " coins.");
@@ -137,6 +141,9 @@ public class ShopAssistant {
 		return (int) Math.max(1, baseValue * multiplier);
 	}
 	public int getSpecialItemValue(int id) {
+		if(MarkOfGrace.isGracefulPiece(id)) {
+			return MarkOfGrace.getGracefulCost(id);
+		}
         return switch (id) {
             case 6889, 6914, 11694 -> 200;
             case 4151, 8848, 10551, 10499 -> 20;
@@ -309,7 +316,7 @@ public class ShopAssistant {
 			if(itemID == 36 && amount > 0) c.getAD().completeAchievement("KandarinEasy", "Buy a candle from the candle maker in Catherby", 2);
 		}
 
-		if (c.myShopId == 17 || c.myShopId == 18 || c.myShopId == 50 || c.myShopId == 60) {
+		if (c.myShopId == 17 || c.myShopId == 18 || c.myShopId == 50 || c.myShopId == 60 || c.myShopId == 192) {
 			handleOtherShop(itemID);
 			return false;
 		}
@@ -447,6 +454,16 @@ public class ShopAssistant {
 				}
 			} else {
 				c.sendMessage("You do not have enough points to buy this item.");
+			}
+		} else if (c.myShopId == 192) {
+			if (c.getItems().getItemAmount(11849) >= getSpecialItemValue(itemID)) {
+				if (c.getItems().freeSlots() > 0) {
+					c.getItems().deleteItem(11849, c.getItems().getItemSlot(11849), MarkOfGrace.getGracefulCost(itemID));
+					c.getItems().addItem(itemID, 1);
+					c.getItems().resetItems(3823);
+				}
+			} else {
+				c.sendMessage("You do not have enough Marks of grace to buy this item.");
 			}
 		}
 	}

@@ -121,6 +121,7 @@ public class RooftopCanifis {
 
             case JUMP_DOWN:
                 AgilitySequence.create(c, 3, 7, JUMP_DOWN)
+                        .npcAnimation(5921, 2, 863)
                         .face(3511, 3485)
                         .anim(2586)
                         .teleport(3510, 3482, 2)

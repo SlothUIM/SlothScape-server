@@ -5,9 +5,15 @@ import server.model.items.Item;
 import server.model.items.bank.BankItem;
 import server.model.items.bank.BankTab;
 import server.model.items.containers.FancyDressBox;
+import server.model.multiplayer_session.MultiplayerSession;
+import server.model.multiplayer_session.duel.DuelSession;
+import server.model.multiplayer_session.trade.TradeSession;
 import server.model.players.Player;
 import server.model.players.PacketType;
 import server.model.players.PriceChecker;
+import server.world.World;
+
+import java.util.Objects;
 
 /**
  * Bank All Items
@@ -93,51 +99,30 @@ public class BankAll implements PacketType {
 		case 7423:
 				//c.getItems().bankItem(c.playerItems[removeSlot] , removeSlot, c.getItems().itemAmount(c.playerItems[removeSlot]));
 		break;
-		case 3322:
-			if (c.duelStatus <= 0) {
-				if (Item.itemStackable[removeId]) {
-					//c.getTradeAndDuel().tradeItem(removeId, removeSlot,
-					//		c.playerItemsN[removeSlot]);
-				} else {
-					//c.getTradeAndDuel().tradeItem(removeId, removeSlot, 28);
-				}
-			} else {
-				if (Item.itemStackable[removeId] || Item.itemIsNote[removeId]) {
-					//c.getTradeAndDuel().stakeItem(removeId, removeSlot,
-						//	c.playerItemsN[removeSlot]);
-				} else {
-				//	c.getTradeAndDuel().stakeItem(removeId, removeSlot, 28);
-				}
-			}
-			break;
 
 		case 43933:
 			if(c.isChecking)
-			PriceChecker.withdrawItem(c, removeId, removeSlot,
-					c.getItems().itemAmount(c.priceN[removeSlot]));
+				PriceChecker.withdrawItem(c, removeId, removeSlot, c.getItems().itemAmount(c.priceN[removeSlot]));
 		break;
-		case 3415:
-			/*if (c.duelStatus <= 0) {
-				if (Item.itemStackable[removeId]) {
-					for (GameItem item : c.getTradeAndDuel().offeredItems) {
-						if (item.id == removeId) {
-							c.getTradeAndDuel().fromTrade(
-									removeId,
-									removeSlot,
-									c.getTradeAndDuel().offeredItems
-											.get(removeSlot).amount);
-						}
-					}
-				} else {
-					for (GameItem item : c.getTradeAndDuel().offeredItems) {
-						if (item.id == removeId) {
-							c.getTradeAndDuel().fromTrade(removeId, removeSlot,
-									28);
-						}
-					}
+			case 3322:
+				MultiplayerSession session = World.getWorld().getMultiplayerSessionListener().getMultiplayerSession(c);
+				if (Objects.isNull(session)) {
+					return;
 				}
-			}*/
-			break;
+				if (session instanceof TradeSession || session instanceof DuelSession) {
+					session.addItem(c, new Item(removeId, c.getItems().itemAmount(c.playerItems[removeSlot])));
+				}
+				break;
+
+			case 3415:
+				session = World.getWorld().getMultiplayerSessionListener().getMultiplayerSession(c);
+				if (Objects.isNull(session)) {
+					return;
+				}
+				if (session instanceof TradeSession) {
+					session.removeItem(c, removeSlot, new Item(removeId, c.getItems().itemAmount(c.playerItems[removeSlot])));
+				}
+				break;
 
 		case 1688:
 			

@@ -3,7 +3,9 @@ package server.model.players.skills.agility.impl.rooftop;
 import server.event.CycleEvent;
 import server.event.CycleEventContainer;
 import server.event.CycleEventHandler;
+import server.model.npcs.NPC;
 import server.model.players.Player;
+import server.world.World;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,6 +19,8 @@ public class AgilitySequence {
     private final int obstacleIndex;
     private final int objectId;
     private int baseXp = 0; // Default to 0
+    private boolean wasRunning = false;
+    private boolean restoreRun = false;
     private boolean isFinish = false;
     private int finishXp;
     private int finishPet;
@@ -72,7 +76,18 @@ public class AgilitySequence {
         this.baseXp = xp;
         return this;
     }
-
+    public AgilitySequence npcAnimation(int npcId, int zHeight, int animId) {
+        Runnable prev = currentActionBuffer;
+        currentActionBuffer = () -> {
+            prev.run();
+            for (NPC npc : World.getWorld().npcHandler.npcs) {
+                if (npc != null && npc.npcType == npcId && npc.getHeight() == zHeight) {
+                    npc.startAnimation(animId);
+                }
+            }
+        };
+        return this;
+    }
     public AgilitySequence hotSpot(int x, int y) {
         Runnable prev = currentActionBuffer;
         currentActionBuffer = () -> {
@@ -93,9 +108,23 @@ public class AgilitySequence {
         return slide(x, y, x, y, z, 1, dir, anim, spd1, spd2);
     }
 
+    // NEW: Multi-tile segmented slide method
+    public AgilitySequence slide(int[][] path, int endX, int endY, int z, int offset, String dir, int anim, int spd1, int spd2) {
+        Runnable prev = currentActionBuffer;
+        currentActionBuffer = () -> { prev.run(); c.setMove(path, dir, anim, -1, spd1, spd2, endX, endY, offset, 1, 1, z); };
+        return this;
+    }
     public AgilitySequence walkOff() {
         Runnable prev = currentActionBuffer;
-        currentActionBuffer = () -> { prev.run(); if(c.isRunning()) c.isRunning = false; };
+        currentActionBuffer = () -> {
+            prev.run();
+            if (c.isRunning()) {
+                this.wasRunning = true; // Remember that they had run turned on
+                c.isRunning = false;    // Turn it off for the jump
+                c.getPA().sendFrame36(173, 0); // Visually toggle the client run orb OFF
+            }
+            this.restoreRun = true; // Flag the sequence to check this at the end
+        };
         return this;
     }
 
@@ -168,8 +197,13 @@ public class AgilitySequence {
         if (isFinish) {
             c.getAgilityHandler().roofTopFinished(c, obstacleIndex, finishXp, finishPet, courseIndex);
         } else {
-            // FIXED: Now passes your custom baseXp to the handler
             c.getAgilityHandler().lapProgress(c, obstacleIndex, objectId, courseIndex, baseXp);
+        }
+
+        // NEW: Restore the player's run state if it was temporarily disabled
+        if (restoreRun && wasRunning) {
+            c.isRunning = true;
+            c.getPA().sendFrame36(173, 1); // Visually toggle the client run orb back ON
         }
     }
 }

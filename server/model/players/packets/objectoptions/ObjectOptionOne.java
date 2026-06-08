@@ -260,6 +260,12 @@ public class ObjectOptionOne {
 		    return; // Stops normal object clicking
 		}
 		switch (objectId) {
+			case 7257:
+				AgilityHandler.delayEmote(c, "CLIMB_DOWN", 3061, 4985, 1, 1);
+				break;
+			case 7258:
+				c.getPA().movePlayer(2906, 3537, 0);
+				break;
 			case 29776: // Raiding Parties Recruitment Board
 				// 1. Refresh the board with the live global list of advertised parties
 				server.model.minigames.cox.CoxPartyManager.refreshRecruitmentBoard(c);

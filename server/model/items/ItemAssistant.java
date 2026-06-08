@@ -2414,7 +2414,7 @@ private int findLootSlot(int itemId) {
 			c.sendMessage("You cannot trade your trident whilst it has a charge.");
 			return false;
 		}
-		if (getItemName(itemId).contains("graceful")) {
+		if (getItemName(itemId) != null && getItemName(itemId).contains("graceful")) {
 			return false;
 		}
 		boolean CANNOT_SHARE = IntStream.of(Config.NOT_SHAREABLE).anyMatch(shareable -> shareable == itemId);

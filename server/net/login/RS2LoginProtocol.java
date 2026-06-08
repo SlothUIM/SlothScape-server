@@ -145,28 +145,54 @@ public class RS2LoginProtocol extends FrameDecoder {
 	}
 
 	private static Player login(Channel channel, ISAACCipher inCipher, ISAACCipher outCipher, int version, String name, String pass, String macAddress, String identity) {
+
+		// --- ADD THIS LOUD DEBUG BOX ---
+		System.out.println("=====================================");
+		System.out.println("[LOGIN TRACE] Connection received for: " + name);
+		System.out.println("=====================================");
+
 		int returnCode = 2;
 		int port = ((InetSocketAddress) channel.getLocalAddress()).getPort();
-//
+
 		if(!World.getWorld().isWorldLoaded()) {
+			System.out.println("[LOGIN TRACE] Failed: World is not loaded yet.");
 			returnCode = 11;
 			sendReturnCode(channel, returnCode);
 			return null;
 		}
-		
-		// --- THE VERSION CHECK ---
-		/*if (version != Config.CLIENT_VERSION) {
-			returnCode = 6; 
-			sendReturnCode(channel, returnCode);
-			return null;
-		}*/
+
 		if (!name.matches("[A-Za-z0-9 ]+")) {
+			System.out.println("[LOGIN TRACE] Failed: Invalid characters in name.");
 			returnCode = 4;
 		}
 		if (name.length() > 12) {
+			System.out.println("[LOGIN TRACE] Failed: Name too long.");
 			returnCode = 8;
 		}
 
+		if (returnCode == 2) {
+			System.out.println("[LOGIN TRACE] Proceeding to Web Authentication...");
+			int authStatus = WebAuth.authenticate(name, pass);
+			System.out.println("[LOGIN TRACE] WebAuth returned: " + authStatus);
+
+			if (authStatus == 1) {
+				returnCode = 12; // Will tell them to go to the website
+			} else if (authStatus == 2) {
+				returnCode = 3;  // Invalid password
+			} else if (authStatus == 3) {
+				returnCode = 13; // Unverified email
+			} else if (authStatus == 4) {
+				returnCode = 8;  // Login server offline (Database is down)
+			}
+		}
+
+		if (returnCode != 2) {
+			System.out.println("[LOGIN TRACE] Rejected with return code: " + returnCode);
+			sendReturnCode(channel, returnCode);
+			return null;
+		}
+
+		System.out.println("[LOGIN TRACE] WebAuth passed! Building player slot...");
 		if (!PlayerSave.playerExists(name)) {
 			String lowercaseName = name.toLowerCase();
 			if (/*lowercaseName.contains("mod") || */lowercaseName.contains("admin")) {

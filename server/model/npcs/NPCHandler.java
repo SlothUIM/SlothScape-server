@@ -931,6 +931,7 @@ public class NPCHandler {
 				return false;
 			}
 		} else {
+			if(npcs[i] != null)
 			switch (npcs[i].npcType) {
 			case 5916:
 			case 690:

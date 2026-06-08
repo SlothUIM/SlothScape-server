@@ -2424,7 +2424,7 @@ public class Player extends Entity {
 
 		startAnimation(anim);
 
-		if(anim == 756 || anim == 762 || anim == 1122) {
+		if(anim == 756 || anim == 762 || anim == 1122 || anim == 1122) {
 			this.playerStandIndex = anim;
 			this.playerWalkIndex = anim;
 			this.playerRunIndex = anim;
@@ -2432,7 +2432,8 @@ public class Player extends Entity {
 			this.playerTurn90CCWIndex = anim;
 			this.playerTurn90CWIndex = anim;
 			this.playerTurnIndex = anim;
-			setAppearanceUpdateRequired(true);
+			this.setAppearanceUpdateRequired(true);
+			this.getPA().requestUpdates();
 		}
 
 		// Set the speeds strictly to what we pass in
