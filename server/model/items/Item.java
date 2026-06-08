@@ -408,7 +408,7 @@ public class Item {
 	}
 	public static String getItemName(int id) {
 		if (id < 0) {
-			return null;
+			return "unarmed";
 		}
 //		
 //		ItemAssistant.getItemName(id);

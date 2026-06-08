@@ -17,9 +17,9 @@ public class SkillExperience {
 		resetToActualLevels();
 	}
 
-	private int[] experience = new int[Skill.values().length];
+	public int[] experience = new int[Skill.values().length];
 
-	private int[] levels = new int[Skill.values().length];
+	int[] levels = new int[Skill.values().length];
 
 	public int getExperience(Skill skill) {
 		return experience[skill.getId()];

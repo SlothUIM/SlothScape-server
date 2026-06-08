@@ -100,7 +100,17 @@ public class MeleeData {
 		c.playerTurn90CWIndex = 0x335;
 		c.playerTurn90CCWIndex = 0x336;
 		c.playerRunIndex = 0x338;
-		
+
+		if (weaponName.contains("unarmed")) {
+			c.playerStandIndex = 0x328;
+			c.playerTurnIndex = 0x337;
+			c.playerWalkIndex = 0x333;
+			c.playerTurn180Index = 0x334;
+			c.playerTurn90CWIndex = 0x335;
+			c.playerTurn90CCWIndex = 0x336;
+			c.playerRunIndex = 0x338;
+			return;
+		}
 //	if (c.playerEquipment[c.playerCape] == 33719) {
 //		c.startAnimation(1500);
 //		c.playerTurnIndex = 1501;
@@ -136,14 +146,14 @@ public class MeleeData {
 		//c.morphed = false;
 		c.setAppearanceUpdateRequired(true);
 	}
-	
+
 		if (weaponName.contains("hunting knife")) {
 			c.playerStandIndex = 7329;
 			c.playerWalkIndex = 7327;
 			c.playerRunIndex = 7327;
 			return;
 		}
-		
+
 		 if (c.playerEquipment[c.playerWeapon] == 22545 || c.playerEquipment[c.playerWeapon] == 22542
 				 || c.playerEquipment[c.playerWeapon] == 33780 || c.playerEquipment[c.playerWeapon] == 33779 || c.playerEquipment[c.playerWeapon] == 33778) {//chainmace
 	            c.playerStandIndex = 244;

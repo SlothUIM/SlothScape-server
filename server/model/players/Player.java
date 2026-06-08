@@ -2657,7 +2657,17 @@ public class Player extends Entity {
 	    this.forceMovement = false;
 	    this.forceMovementActive = false;
 	    this.setNeedsPlacement(true);
-	    getCombat().getPlayerAnimIndex(server.model.items.Item.getItemName(this.playerEquipment[this.playerWeapon]).toLowerCase());
+		if(Item.getItemName(this.playerEquipment[this.playerWeapon]) != null)
+	    	getCombat().getPlayerAnimIndex(server.model.items.Item.getItemName(this.playerEquipment[this.playerWeapon]).toLowerCase());
+		else {
+			c.playerStandIndex = 0x328;
+			c.playerTurnIndex = 0x337;
+			c.playerWalkIndex = 0x333;
+			c.playerTurn180Index = 0x334;
+			c.playerTurn90CWIndex = 0x335;
+			c.playerTurn90CCWIndex = 0x336;
+			c.playerRunIndex = 0x338;
+		}
 	    setAppearanceUpdateRequired(true);
 	    this.getPA().requestUpdates();
 	}
@@ -3134,7 +3144,30 @@ public boolean inDungeon()
 			}
 			specRestoreTicks = 50;
 		}
+		long lastRestore = System.currentTimeMillis();
 
+		if (System.currentTimeMillis() - restoreStatsDelay > 60000) {
+			restoreStatsDelay = lastRestore;
+
+			for (int level = 0; level < getSkills().levels.length; level++) {
+				if (getSkills().levels[level] < getSkills().getLevelForExp(getSkills().experience[level])) {
+					if (level != 5) { // prayer doesn't restore
+						getSkills().levels[level] += 1;
+						getPA().setSkillLevel(level, getSkills().levels[level],
+								getSkills().experience[level]);
+						getSkills().sendRefresh();
+
+					} else if(level == 3) {
+						getHealth().increase(1);
+					}
+				} else if (getSkills().levels[level] > getSkills().getLevelForExp(getSkills().experience[level])) {
+					getSkills().levels[level] -= 1;
+					getPA().setSkillLevel(level, getSkills().levels[level],
+							getSkills().experience[level]);
+					getSkills().sendRefresh();
+				}
+			}
+		}
 		if (getHealth().getAmount() <= 0) {
 			isDead = true;
 			sendMessage("Oh dear, you are dead!");
@@ -3176,7 +3209,7 @@ public boolean inDungeon()
 		updateWalkEntities();
 
 		// TICK REFACTOR & PACKET FILTER: Replaces continuous System.currentTimeMillis() string updates
-		if (statRestoreTicks > 0) {
+		if (statRestoreTicks > 0) { // not for server stat restore, but for client info boxes updating
 			statRestoreTicks--;
 		} else {
 			statRestoreTicks = 100; // Reset 1 minute cycle
